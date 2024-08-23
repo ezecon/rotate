@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Images</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .center-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+        }
+
+        .rotating-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80px;
+            height: 80px;
+            transform-origin: 50% -150px;
+            transition: transform 0.1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="center-image.jpg" class="center-image" id="centerImage" alt="Center Image">
+        <img src="image1.jpg" class="rotating-image" id="image1" alt="Image 1">
+        <img src="image2.jpg" class="rotating-image" id="image2" alt="Image 2">
+        <img src="image3.jpg" class="rotating-image" id="image3" alt="Image 3">
+    </div>
+    <script>
+        const centerImage = document.getElementById('centerImage');
+        const rotatingImages = document.querySelectorAll('.rotating-image');
+
+        let angle = 0;
+
+        function rotateImages(e) {
+            angle += e.movementX / 2;  // Adjust rotation sensitivity here
+            rotatingImages.forEach((img, index) => {
+                img.style.transform = `rotate(${angle + (360 / rotatingImages.length) * index}deg)`;
+            });
+        }
+
+        document.addEventListener('mousemove', rotateImages);
+    </script>
+</body>
+</html>
